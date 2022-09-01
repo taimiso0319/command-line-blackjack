@@ -1,6 +1,6 @@
 namespace Taimiso
 {
-    public static class Messages
+    public static class Message
     {
         public static string GameOver = "Game Over!";
         public static string NoCredit = "賭けられるCreditがありません。";
@@ -36,5 +36,10 @@ namespace Taimiso
         public static string DealerStopDraw = "ディーラーの合計が17以上に達したため、ドローを終了します。";
         public static string DealerContinueDraw = "ディーラーの合計が17に達していないため、ドローを継続します。";
         public static string GameOverResult = "{0} creditsで終了!";
+
+        public static void ShowMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace Taimiso
             {
                 if (CheckPlayerLose())
                 {
-                    ShowMessage(Messages.NoCredit);
+                    Message.ShowMessage(Message.NoCredit);
                     playLoop = false;
                     continue;
                 }
@@ -55,7 +55,7 @@ namespace Taimiso
                 ShowPlayerCardTotal();
                 if (m_Player.IsBlackJack)
                 {
-                    ShowMessage(Messages.ShowNaturalBlackJack);
+                    Message.ShowMessage(Message.ShowNaturalBlackJack);
                 }
                 else
                 {
@@ -72,8 +72,8 @@ namespace Taimiso
                     playLoop = false;
                 }
             }
-            ShowMessage(string.Format(Messages.GameOverResult, m_Player.Credit.ToString()));
-            ShowMessage(Messages.GameOver);
+            Message.ShowMessage(string.Format(Message.GameOverResult, m_Player.Credit.ToString()));
+            Message.ShowMessage(Message.GameOver);
         }
 
         private void AskBet()
@@ -81,32 +81,32 @@ namespace Taimiso
             bool betSuccess = false;
             while (!betSuccess)
             {
-                ShowMessage(string.Format(Messages.TellHoldingCredit, m_Player.Credit));
-                ShowMessage(Messages.AskBetAmount);
-                ShowMessage(string.Format(Messages.TellMinimumBet, MINIMUM_BET));
-                ShowMessage(string.Format(Messages.TellMinimumBetUnit, BET_UNIT));
+                Message.ShowMessage(string.Format(Message.TellHoldingCredit, m_Player.Credit));
+                Message.ShowMessage(Message.AskBetAmount);
+                Message.ShowMessage(string.Format(Message.TellMinimumBet, MINIMUM_BET));
+                Message.ShowMessage(string.Format(Message.TellMinimumBetUnit, BET_UNIT));
                 int amount = 0;
                 if (!Int32.TryParse(Console.ReadLine(), out amount))
                 {
-                    ShowMessage(Messages.ErrorBetHasToBeDigit);
+                    Message.ShowMessage(Message.ErrorBetHasToBeDigit);
                     continue;
                 }
                 if (amount % BET_UNIT != 0)
                 {
-                    ShowMessage(string.Format(Messages.ErrorBetInvalidUnit, BET_UNIT));
+                    Message.ShowMessage(string.Format(Message.ErrorBetInvalidUnit, BET_UNIT));
                     continue;
                 }
                 if (amount < MINIMUM_BET)
                 {
-                    ShowMessage(Messages.ErrorBetNotEnough);
+                    Message.ShowMessage(Message.ErrorBetNotEnough);
                     continue;
                 }
                 if (m_Player.Credit < amount)
                 {
-                    ShowMessage(Messages.ErrorBetTooMuch);
+                    Message.ShowMessage(Message.ErrorBetTooMuch);
                     continue;
                 }
-                ShowMessage(string.Format(Messages.TellHowMuchBet, amount));
+                Message.ShowMessage(string.Format(Message.TellHowMuchBet, amount));
                 m_Player.SetPlayerInitialBet(amount);
                 betSuccess = true;
             }
@@ -115,21 +115,21 @@ namespace Taimiso
 
         private void DealDealerCard()
         {
-            ShowMessage(Messages.DealDealerCard);
+            Message.ShowMessage(Message.DealDealerCard);
             Card card = m_Deck.Deal();
             m_Dealer.AddHand(card);
-            ShowMessage(string.Format(Messages.DealtCard, m_Dealer.HandCount()));
-            ShowMessage(string.Format(Messages.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+            Message.ShowMessage(string.Format(Message.DealtCard, m_Dealer.HandCount()));
+            Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
             Console.ReadKey();
         }
 
         private void DealPlayerFirstCard()
         {
-            ShowMessage(Messages.DealPlayerCard);
+            Message.ShowMessage(Message.DealPlayerCard);
             Card card = m_Deck.Deal();
             m_Player.AddHand(card);
-            ShowMessage(string.Format(Messages.DealtCard, m_Player.HandCount()));
-            ShowMessage(string.Format(Messages.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+            Message.ShowMessage(string.Format(Message.DealtCard, m_Player.HandCount()));
+            Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
             Console.ReadKey();
         }
 
@@ -140,22 +140,22 @@ namespace Taimiso
 
         private void DealPlayerSecondCard()
         {
-            ShowMessage(Messages.DealPlayerCard);
+            Message.ShowMessage(Message.DealPlayerCard);
             Card card = m_Deck.Deal();
             m_Player.AddHand(card);
-            ShowMessage(string.Format(Messages.DealtCard, m_Player.HandCount()));
-            ShowMessage(string.Format(Messages.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+            Message.ShowMessage(string.Format(Message.DealtCard, m_Player.HandCount()));
+            Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
             Console.ReadKey();
         }
 
         private void ShowPlayerCardTotal()
         {
-            ShowMessage(string.Format(Messages.ShowPlayerCardTotal, m_Player.HandTotal()));
+            Message.ShowMessage(string.Format(Message.ShowPlayerCardTotal, m_Player.HandTotal()));
         }
 
         private void ShowDealerCardTotal()
         {
-            ShowMessage(string.Format(Messages.ShowDealerCardTotal, m_Dealer.HandTotal()));
+            Message.ShowMessage(string.Format(Message.ShowDealerCardTotal, m_Dealer.HandTotal()));
         }
 
         private void PlayerDraw()
@@ -163,11 +163,11 @@ namespace Taimiso
             bool drawDone = false;
             while (!drawDone)
             {
-                ShowMessage(Messages.AskPlayerAction);
+                Message.ShowMessage(Message.AskPlayerAction);
                 int action = 0;
                 if (!Int32.TryParse(Console.ReadLine(), out action))
                 {
-                    ShowMessage(Messages.ErrorAskPlayerAction);
+                    Message.ShowMessage(Message.ErrorAskPlayerAction);
                     continue;
                 }
                 switch ((PlayerActionType)action)
@@ -178,18 +178,18 @@ namespace Taimiso
                 case PlayerActionType.Double:
                     if (m_Player.Credit < m_Player.TotalBet * 2)
                     {
-                        ShowMessage(Messages.ErrorAskPlayerActionDouble);
-                        ShowMessage(string.Format(Messages.TellHoldingCredit, m_Player.Credit));
-                        ShowMessage(string.Format(Messages.TellHowMuchBetTotal, m_Player.TotalBet));
+                        Message.ShowMessage(Message.ErrorAskPlayerActionDouble);
+                        Message.ShowMessage(string.Format(Message.TellHoldingCredit, m_Player.Credit));
+                        Message.ShowMessage(string.Format(Message.TellHowMuchBetTotal, m_Player.TotalBet));
                         continue;
                     }
-                    ShowMessage(string.Format(Messages.TellHowMuchBet, m_Player.TotalBet));
+                    Message.ShowMessage(string.Format(Message.TellHowMuchBet, m_Player.TotalBet));
                     m_Player.DoubleBet();
-                    ShowMessage(string.Format(Messages.TellHowMuchBetTotal, m_Player.TotalBet));
+                    Message.ShowMessage(string.Format(Message.TellHowMuchBetTotal, m_Player.TotalBet));
                     HitCard();
                     break;
                 case PlayerActionType.Stand:
-                    ShowMessage(string.Format(Messages.PlayerActionStand, m_Player.HandTotal()));
+                    Message.ShowMessage(string.Format(Message.PlayerActionStand, m_Player.HandTotal()));
                     drawDone = true;
                     break;
                 }
@@ -202,34 +202,34 @@ namespace Taimiso
 
         private void HitCard()
         {
-            ShowMessage(Messages.DealPlayerCard);
+            Message.ShowMessage(Message.DealPlayerCard);
             Card card = m_Deck.Deal();
             m_Player.AddHand(card);
-            ShowMessage(string.Format(Messages.DealtCard, m_Player.HandCount() + 1));
-            ShowMessage(string.Format(Messages.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+            Message.ShowMessage(string.Format(Message.DealtCard, m_Player.HandCount() + 1));
+            Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
             Console.ReadKey();
             ShowPlayerCardTotal();
             if (m_Player.IsBlackJack)
             {
-                ShowMessage(string.Format(Messages.ShowBlackJack));
+                Message.ShowMessage(string.Format(Message.ShowBlackJack));
             }
             if (m_Player.IsBurst)
             {
-                ShowMessage(string.Format(Messages.ShowBurst));
+                Message.ShowMessage(string.Format(Message.ShowBurst));
             }
             Console.ReadKey();
         }
 
         private void DealerDraw()
         {
-            ShowMessage(Messages.DealDealerCard);
+            Message.ShowMessage(Message.DealDealerCard);
             Card card = m_Deck.Deal();
             m_Dealer.AddHand(card);
-            ShowMessage(string.Format(Messages.DealtCard, m_Dealer.HandCount() + 1));
-            ShowMessage(string.Format(Messages.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+            Message.ShowMessage(string.Format(Message.DealtCard, m_Dealer.HandCount() + 1));
+            Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
             if (m_Dealer.IsBlackJack)
             {
-                ShowMessage(string.Format(Messages.ShowBlackJack));
+                Message.ShowMessage(string.Format(Message.ShowBlackJack));
                 return;
             }
             Console.ReadKey();
@@ -240,24 +240,24 @@ namespace Taimiso
             {
                 if (m_Dealer.HandTotal() >= 17)
                 {
-                    ShowMessage(Messages.DealerStopDraw);
+                    Message.ShowMessage(Message.DealerStopDraw);
                     drawDone = true;
                     continue;
                 }
-                ShowMessage(Messages.DealDealerCard);
+                Message.ShowMessage(Message.DealDealerCard);
                 card = m_Deck.Deal();
                 m_Dealer.AddHand(card);
-                ShowMessage(string.Format(Messages.DealtCard, m_Dealer.HandCount()));
-                ShowMessage(string.Format(Messages.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+                Message.ShowMessage(string.Format(Message.DealtCard, m_Dealer.HandCount()));
+                Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
                 Console.ReadKey();
                 ShowDealerCardTotal();
                 if (m_Dealer.IsBlackJack)
                 {
-                    ShowMessage(string.Format(Messages.ShowBlackJack));
+                    Message.ShowMessage(string.Format(Message.ShowBlackJack));
                 }
                 if (m_Dealer.IsBurst)
                 {
-                    ShowMessage(string.Format(Messages.ShowBurst));
+                    Message.ShowMessage(string.Format(Message.ShowBurst));
                 }
                 Console.ReadKey();
             }
@@ -296,27 +296,27 @@ namespace Taimiso
             case ResultType.Win:
                 {
                     int payback = m_Player.TotalBet;
-                    ShowMessage(string.Format(Messages.PaybackWin, payback.ToString()));
+                    Message.ShowMessage(string.Format(Message.PaybackWin, payback.ToString()));
                     m_Player.AddCredit(payback);
                 }
                 break;
             case ResultType.Lose:
                 {
                     int payback = m_Player.TotalBet;
-                    ShowMessage(string.Format(Messages.PaybackLose, payback.ToString()));
+                    Message.ShowMessage(string.Format(Message.PaybackLose, payback.ToString()));
                     m_Player.AddCredit(-payback);
                 }
                 break;
             case ResultType.Draw:
                 {
                     int payback = m_Player.TotalBet;
-                    ShowMessage(string.Format(Messages.PaybackDraw, payback.ToString()));
+                    Message.ShowMessage(string.Format(Message.PaybackDraw, payback.ToString()));
                 }
                 break;
             case ResultType.BlackJack:
                 {
                     int payback = (int)(m_Player.TotalBet * 1.5);
-                    ShowMessage(string.Format(Messages.PaybackBlackJack, payback.ToString()));
+                    Message.ShowMessage(string.Format(Message.PaybackBlackJack, payback.ToString()));
                     m_Player.AddCredit(payback);
                 }
                 break;
@@ -329,11 +329,11 @@ namespace Taimiso
             string? input = "";
             while (!successInput)
             {
-                ShowMessage(Messages.AskContinue);
+                Message.ShowMessage(Message.AskContinue);
                 input = Console.ReadLine();
                 if (input == null || (input != "yes" && input != "no"))
                 {
-                    ShowMessage(Messages.ErrorAskContinue);
+                    Message.ShowMessage(Message.ErrorAskContinue);
                     continue;
                 }
                 successInput = true;
@@ -345,11 +345,6 @@ namespace Taimiso
         {
             if (m_Player.Credit < 100) { return true; }
             return false;
-        }
-
-        private void ShowMessage(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 }
