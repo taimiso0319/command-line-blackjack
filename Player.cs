@@ -26,6 +26,7 @@ namespace Taimiso
 
         private void ClearBet()
         {
+            InitialBet = 0;
             TotalBet = 0;
         }
 
