@@ -23,9 +23,7 @@ namespace Taimiso
         public static string ShowBlackJack = "Black Jack!!";
         public static string ShowBurst = "Burst!!";
         public static string ShowNaturalBlackJack = "Natural Black Jack!!";
-
         public static string AskContinue = "続けますか？(yes/no):";
-
         public static string PaybackWin = "勝利したため {0} creditsを得ました。";
         public static string PaybackLose = "敗北したため {0} creditsを失いました。";
         public static string PaybackDraw = "引き分けしたため {0} creditsが返還されました";
@@ -37,5 +35,6 @@ namespace Taimiso
         public static string ErrorAskPlayerActionDouble = "Creditsが足りないためDoubleできません。";
         public static string DealerStopDraw = "ディーラーの合計が17以上に達したため、ドローを終了します。";
         public static string DealerContinueDraw = "ディーラーの合計が17に達していないため、ドローを継続します。";
+        public static string GameOverResult = "{0} creditsで終了!";
     }
 }

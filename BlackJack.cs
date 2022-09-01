@@ -72,6 +72,7 @@ namespace Taimiso
                     playLoop = false;
                 }
             }
+            ShowMessage(string.Format(Messages.GameOverResult, m_Player.Credit.ToString()));
             ShowMessage(Messages.GameOver);
         }
 
