@@ -21,11 +21,12 @@ namespace Taimiso
         private Deck m_Deck;
         private const int MINIMUM_BET = 100;
         private const int BET_UNIT = 10;
+        private const int DECK_SET = 8;
         public BlackJack()
         {
             m_Player = new Player();
             m_Dealer = new Dealer();
-            m_Deck = new Deck(8);
+            m_Deck = new Deck(DECK_SET);
         }
 
         public void Begin()
