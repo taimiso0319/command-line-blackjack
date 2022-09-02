@@ -89,5 +89,19 @@ namespace Taimiso
             }
             return total;
         }
+
+        public string GetHandString()
+        {
+            string str = "";
+            for (int i = 0; i < m_Hand.Count(); i++)
+            {
+                str += m_Hand[i].GetNumberString();
+                if (i != m_Hand.Count() - 1)
+                {
+                    str += " ";
+                }
+            }
+            return str;
+        }
     }
 }

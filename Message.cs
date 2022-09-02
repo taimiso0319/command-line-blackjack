@@ -30,12 +30,14 @@ namespace Taimiso
         public static string PaybackBlackJack = "BlackJackで勝利したため {0} creditsを得ました。";
         public static string ErrorAskContinue = "yesかnoを入力して下さい。";
         public static string AskPlayerAction = "どうしますか？ (0:hit, 1:double, 2:stand)";
-        public static string PlayerActionStand = "Standを選択しました。カードの合計は {0}　です。";
+        public static string PlayerActionStand = "Standを選択しました。";
         public static string ErrorAskPlayerAction = "入力された文字が不正です。半角数字で入力してください。";
         public static string ErrorAskPlayerActionDouble = "Creditsが足りないためDoubleできません。";
         public static string DealerStopDraw = "ディーラーの合計が17以上に達したため、ドローを終了します。";
         public static string DealerContinueDraw = "ディーラーの合計が17に達していないため、ドローを継続します。";
         public static string GameOverResult = "{0} creditsで終了!";
+        public static string CountAceAsOne = "Aを1としてカウントしました。";
+        public static string ListingCards = "カード一覧: {0}";
 
         public static void ShowMessage(string message)
         {

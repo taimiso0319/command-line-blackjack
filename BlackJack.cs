@@ -90,27 +90,32 @@ namespace Taimiso
                 if (!Int32.TryParse(Console.ReadLine(), out amount))
                 {
                     Message.ShowMessage(Message.ErrorBetHasToBeDigit);
+                    Console.WriteLine();
                     continue;
                 }
                 if (amount % BET_UNIT != 0)
                 {
                     Message.ShowMessage(string.Format(Message.ErrorBetInvalidUnit, BET_UNIT));
+                    Console.WriteLine();
                     continue;
                 }
                 if (amount < MINIMUM_BET)
                 {
                     Message.ShowMessage(Message.ErrorBetNotEnough);
+                    Console.WriteLine();
                     continue;
                 }
                 if (m_Player.Credit < amount)
                 {
                     Message.ShowMessage(Message.ErrorBetTooMuch);
+                    Console.WriteLine();
                     continue;
                 }
                 Message.ShowMessage(string.Format(Message.TellHowMuchBet, amount));
                 m_Player.SetPlayerInitialBet(amount);
                 betSuccess = true;
             }
+            Console.WriteLine();
             Console.ReadKey();
         }
 
@@ -121,6 +126,7 @@ namespace Taimiso
             m_Dealer.AddHand(card);
             Message.ShowMessage(string.Format(Message.DealtCard, m_Dealer.HandCount()));
             Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+            Console.WriteLine();
             Console.ReadKey();
         }
 
@@ -131,6 +137,7 @@ namespace Taimiso
             m_Player.AddHand(card);
             Message.ShowMessage(string.Format(Message.DealtCard, m_Player.HandCount()));
             Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+            Console.WriteLine();
             Console.ReadKey();
         }
 
@@ -146,17 +153,22 @@ namespace Taimiso
             m_Player.AddHand(card);
             Message.ShowMessage(string.Format(Message.DealtCard, m_Player.HandCount()));
             Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
+            Console.WriteLine();
             Console.ReadKey();
         }
 
         private void ShowPlayerCardTotal()
         {
             Message.ShowMessage(string.Format(Message.ShowPlayerCardTotal, m_Player.HandTotal()));
+            Message.ShowMessage(string.Format(Message.ListingCards, m_Player.GetHandString()));
+            Console.WriteLine();
         }
 
         private void ShowDealerCardTotal()
         {
             Message.ShowMessage(string.Format(Message.ShowDealerCardTotal, m_Dealer.HandTotal()));
+            Message.ShowMessage(string.Format(Message.ListingCards, m_Dealer.GetHandString()));
+            Console.WriteLine();
         }
 
         private void PlayerDraw()
@@ -169,6 +181,7 @@ namespace Taimiso
                 if (!Int32.TryParse(Console.ReadLine(), out action))
                 {
                     Message.ShowMessage(Message.ErrorAskPlayerAction);
+                    Console.WriteLine();
                     continue;
                 }
                 switch ((PlayerActionType)action)
@@ -182,6 +195,7 @@ namespace Taimiso
                         Message.ShowMessage(Message.ErrorAskPlayerActionDouble);
                         Message.ShowMessage(string.Format(Message.TellHoldingCredit, m_Player.Credit));
                         Message.ShowMessage(string.Format(Message.TellHowMuchBetTotal, m_Player.TotalBet));
+                        Console.WriteLine();
                         continue;
                     }
                     Message.ShowMessage(string.Format(Message.TellHowMuchBet, m_Player.TotalBet));
@@ -190,7 +204,7 @@ namespace Taimiso
                     HitCard();
                     break;
                 case PlayerActionType.Stand:
-                    Message.ShowMessage(string.Format(Message.PlayerActionStand, m_Player.HandTotal()));
+                    Message.ShowMessage(Message.PlayerActionStand);
                     drawDone = true;
                     break;
                 }
@@ -198,6 +212,7 @@ namespace Taimiso
                 {
                     drawDone = true;
                 }
+                Console.WriteLine();
             }
         }
 
@@ -206,7 +221,7 @@ namespace Taimiso
             Message.ShowMessage(Message.DealPlayerCard);
             Card card = m_Deck.Deal();
             m_Player.AddHand(card);
-            Message.ShowMessage(string.Format(Message.DealtCard, m_Player.HandCount() + 1));
+            Message.ShowMessage(string.Format(Message.DealtCard, m_Player.HandCount()));
             Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
             Console.ReadKey();
             ShowPlayerCardTotal();
@@ -234,6 +249,7 @@ namespace Taimiso
                 return;
             }
             Console.ReadKey();
+            Console.WriteLine();
             ShowDealerCardTotal();
             Console.ReadKey();
             bool drawDone = false;
@@ -251,6 +267,7 @@ namespace Taimiso
                 Message.ShowMessage(string.Format(Message.DealtCard, m_Dealer.HandCount()));
                 Message.ShowMessage(string.Format(Message.ShowDealtCard, card.Suit.ToString(), card.GetNumberString()));
                 Console.ReadKey();
+                Console.WriteLine();
                 ShowDealerCardTotal();
                 if (m_Dealer.IsBlackJack)
                 {
@@ -260,6 +277,7 @@ namespace Taimiso
                 {
                     Message.ShowMessage(string.Format(Message.ShowBurst));
                 }
+                Console.WriteLine();
                 Console.ReadKey();
             }
         }
@@ -339,6 +357,7 @@ namespace Taimiso
                 }
                 successInput = true;
             }
+            Console.WriteLine();
             return input == "yes";
         }
 
